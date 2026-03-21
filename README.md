@@ -14,7 +14,9 @@ The program accepts a truth table for a Boolean function, generates the canonica
 
 - Accepts the number of input variables from the command line
 - Accepts a truth table from interactive input or a file
-- Validates the truth table
+- Validates that the truth table contains exactly `2^n` rows
+- Validates that each input combination appears exactly once
+- Validates that each output value is either `0` or `1`
 - Generates canonical `SOP` or `POS`
 - Lists minterms or maxterms
 - Displays a Karnaugh Map for 2 to 4 variables
