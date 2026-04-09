@@ -1,98 +1,93 @@
-# Processor Design Task 2
+# Processor Design Task 3
 
-This project implements Task 2 of the CSC 4210/6210 Computer Architecture processor design project.
+This project implements Task 3 of the CSC 4210/6210 Computer Architecture processor design project.
 
 ## Overview
 
-The program accepts a truth table for a Boolean function, generates the canonical Boolean expression, simplifies it, and validates the simplified result against the original truth table.
+The program simulates a processor memory hierarchy using SSD, DRAM, L3, L2, and L1. It enforces hierarchical data movement, supports read and write operations, tracks the clock cycle for every transfer, and includes the bonus cache replacement policies.
 
-## File
+## Files
 
+- `Processor.py`: Task 1 implementation
 - `Processor(2).py`: Task 2 implementation
+- `Processor(3).py`: Task 3 implementation
 
 ## Features
 
-- Accepts the number of input variables from the command line
-- Accepts a truth table from interactive input or a file
-- Validates that the truth table contains exactly `2^n` rows
-- Validates that each input combination appears exactly once
-- Validates that each output value is either `0` or `1`
-- Generates canonical `SOP` or `POS`
-- Lists minterms or maxterms
-- Displays a Karnaugh Map for 2 to 4 variables
-- Shows grouping used for simplification
-- Prints the simplified Boolean expression
-- Validates the simplified result with `PASS` or `FAIL`
+- Simulates the hierarchy `SSD -> DRAM -> L3 -> L2 -> L1 -> CPU`
+- Prevents direct access that bypasses intermediate levels
+- Treats all values as 32-bit instructions
+- Allows configurable sizes for SSD, DRAM, L3, L2, and L1
+- Allows configurable latencies and transfer bandwidth
+- Supports `READ` and `WRITE` operations
+- Uses a clock-driven simulation model
+- Logs movement of data across levels
+- Tracks cache hits and misses
+- Prints the final state of every level
+- Includes the bonus replacement policies: `LRU`, `FIFO`, and `RANDOM`
 
 ## Requirements
 
 - Python 3
 
+## Run With a Trace File
+
+```bash
+python3 'Processor(3).py' --trace task3_trace.txt
+```
+
 ## Run With Interactive Input
 
 ```bash
-python3 'Processor(2).py' 3 --form SOP
+python3 'Processor(3).py'
 ```
 
-Enter each row in this format:
+Enter operations one per line:
 
 ```text
-<bits> <output>
+READ <address>
+WRITE <address> <value>
 ```
 
-Example:
+Type `DONE` when finished.
+
+## Example Trace File
 
 ```text
-000 0
-001 1
-010 1
-011 0
-100 1
-101 0
-110 1
-111 1
+READ 0
+READ 1
+READ 0
+WRITE 2 0x12345678
+READ 2
+WRITE 5 255
+READ 5
 ```
 
-## Run With File Input
+## Example With Custom Parameters
 
 ```bash
-python3 'Processor(2).py' 3 --form POS --file truth_table.txt
-```
-
-Example `truth_table.txt`:
-
-```text
-000 0
-001 1
-010 1
-011 0
-100 1
-101 0
-110 1
-111 1
-```
-
-You can also provide separated bits:
-
-```text
-0 0 0 0
-0 0 1 1
-0 1 0 1
-0 1 1 0
-1 0 0 1
-1 0 1 0
-1 1 0 1
-1 1 1 1
+python3 'Processor(3).py' \
+  --ssd-size 16 \
+  --dram-size 8 \
+  --l3-size 4 \
+  --l2-size 3 \
+  --l1-size 2 \
+  --ssd-latency 10 \
+  --dram-latency 6 \
+  --l3-latency 3 \
+  --l2-latency 2 \
+  --l1-latency 1 \
+  --bandwidth 1 \
+  --policy LRU \
+  --trace task3_trace.txt
 ```
 
 ## Program Output
 
 The program prints:
 
-1. Truth table
-2. Canonical equation
-3. Minterm or maxterm list
-4. K-Map
-5. K-Map grouping
-6. Simplified Boolean expression
-7. Validation result
+1. Memory hierarchy configuration
+2. Instruction access trace
+3. Movement of data across levels
+4. Cache hits and misses
+5. Final state of each memory level
