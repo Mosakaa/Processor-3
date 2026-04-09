@@ -6,12 +6,6 @@ This project implements Task 3 of the CSC 4210/6210 Computer Architecture proces
 
 The program simulates a processor memory hierarchy using SSD, DRAM, L3, L2, and L1. It enforces hierarchical data movement, supports read and write operations, tracks the clock cycle for every transfer, and includes the bonus cache replacement policies.
 
-## Files
-
-- `Processor.py`: Task 1 implementation
-- `Processor(2).py`: Task 2 implementation
-- `Processor(3).py`: Task 3 implementation
-
 ## Features
 
 - Simulates the hierarchy `SSD -> DRAM -> L3 -> L2 -> L1 -> CPU`
